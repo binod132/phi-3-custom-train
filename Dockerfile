@@ -1,6 +1,7 @@
 # Start with a GPU base image
+FROM nvidia/cuda:11.8.0-cudnn8-runtime-ubuntu22.04
 #FROM nvidia/cuda:12.1.0-base-ubi8
-FROM nvidia/cuda:12.1.0-cudnn8-runtime-ubi8
+#FROM nvidia/cuda:12.1.0-cudnn8-runtime-ubi8
 #FROM pytorch/pytorch:2.4.0-cuda12.1-cudnn9-runtime
 #FROM pytorch/pytorch:2.4.0-cuda12.1-cudnn9-devel
 #FROM us-docker.pkg.dev/deeplearning-platform-release/gcr.io/pytorch-cu121.2-2.py310
