@@ -1,0 +1,14 @@
+steps:
+  - name: gcr.io/cloud-builders/git
+    args: ['clone', '-b', '${BRANCH_NAME}', '--single-branch', 'https://${_GIT_USER_}:${_GIT_TOKEN_}@github.com/binod132/${REPO_NAME}.git']
+
+  - name: gcr.io/cloud-builders/docker
+    args: ['build', '--build-arg', 'PROJECT_ID=${PROJECT_ID}', '--build-arg', 'GITHUB_TOKEN=${_GIT_TOKEN_}', '-t', 'gcr.io/${PROJECT_ID}/${REPO_NAME}:${BRANCH_NAME}', '--file=Dockerfile', '.']
+
+  - name: gcr.io/cloud-builders/docker
+    args: ['push', 'gcr.io/${PROJECT_ID}/${REPO_NAME}:${BRANCH_NAME}']
+options:
+  logging: CLOUD_LOGGING_ONLY
+serviceAccount: cloudbuild@brave-smile-424210-m0.iam.gserviceaccount.com
+
+timeout: 1500s
