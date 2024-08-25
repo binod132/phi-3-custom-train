@@ -1,14 +1,14 @@
 # Start with a GPU base image
-#FROM pytorch/pytorch:2.4.0-cuda12.1-cudnn9-devel
-FROM us-docker.pkg.dev/deeplearning-platform-release/gcr.io/pytorch-cu121.2-2.py310
+FROM pytorch/pytorch:2.4.0-cuda12.1-cudnn9-devel
+#FROM us-docker.pkg.dev/deeplearning-platform-release/gcr.io/pytorch-cu121.2-2.py310
 
 # Install any additional dependencies
 RUN apt-get update && apt-get install -y git
 RUN pip install --upgrade pip && \
     pip install transformers datasets torch google-cloud-storage && \
     pip install "unsloth[colab-new] @ git+https://github.com/unslothai/unsloth.git" && \
-    pip install --no-deps xformers trl peft accelerate bitsandbytes datasets
-#pip install torch==2.4.0+cu121 --index-url https://download.pytorch.org/whl/cu121
+    pip install --no-deps xformers trl peft accelerate bitsandbytes datasets && \
+    pip install torch==2.4.0+cu121 --index-url https://download.pytorch.org/whl/cu121
 
 # Copy the training script
 COPY train.py /app/train.py
