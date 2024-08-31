@@ -17,9 +17,9 @@ def pipeline():
      .set_accelerator_type('NVIDIA_TESLA_T4')
 
     # Step 3: Predict using the finetuned model
-    predict_task = predict(
-        model=finetune_model_task.outputs["output_model"]
-    )
+    #predict_task = predict(
+    #    model=finetune_model_task.outputs["output_model"]
+    #)
 
 if __name__ == "__main__":
     compiler.Compiler().compile(
