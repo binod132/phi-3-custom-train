@@ -4,7 +4,8 @@ from kfp.v2.dsl import component, Input, Output, Dataset, Model
 @component(
     base_image='us-docker.pkg.dev/brave-smile-424210-m0/train/phi-3:dev'
 )
-def finetune_model(dataset: Input[Dataset], output_model: Output[Model]):
+#def finetune_model(dataset: Input[Dataset], output_model: Output[Model]):
+def finetune_model( output_model: Output[Model]):
     import torch
     from unsloth import FastLanguageModel
     from transformers import TrainingArguments
@@ -39,7 +40,35 @@ def finetune_model(dataset: Input[Dataset], output_model: Output[Model]):
         loftq_config = None, # And LoftQ
     )
         # Load and prepare dataset
-    dataset = load_dataset('csv', data_files=dataset.path)
+    #dataset = load_dataset('csv', data_files=dataset.path)
+    #data preprocessing prompt
+    alpaca_prompt = """Below is an instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.
+
+    ### Instruction:
+    {}
+
+    ### Input:
+    {}
+
+    ### Response:
+    {}"""
+
+    EOS_TOKEN = tokenizer.eos_token # Must add EOS_TOKEN
+    def formatting_prompts_func(examples):
+        instructions = examples["instruction"]
+        inputs       = examples["input"]
+        outputs      = examples["output"]
+        texts = []
+        for instruction, input, output in zip(instructions, inputs, outputs):
+            # Must add EOS_TOKEN, otherwise your generation will go on forever!
+            text = alpaca_prompt.format(instruction, input, output) + EOS_TOKEN
+            texts.append(text)
+        return { "text" : texts, }
+    pass
+
+    from datasets import load_dataset
+    dataset = load_dataset("yahma/alpaca-cleaned", split = "train")
+    dataset = dataset.map(formatting_prompts_func, batched = True,)
     
     # Define training arguments
     trainer = SFTTrainer(
@@ -70,3 +99,4 @@ def finetune_model(dataset: Input[Dataset], output_model: Output[Model]):
     # Train and save the model
     trainer.train()
     trainer.save_model(output_model.path)
+    tokenizer.save_pretrained(output_model.path)

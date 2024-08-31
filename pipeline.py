@@ -8,11 +8,11 @@ from components.predict_component import predict
 @pipeline(name="phi-3-model-finetuning-pipeline")
 def pipeline():
     # Step 1: Prepare Dataset
-    prepare_dataset_task = prepare_dataset()
+    #prepare_dataset_task = prepare_dataset()
 
     # Step 2: Fine-tune Model with GPU and Machine Type Configuration
     finetune_model_task = finetune_model(
-        dataset=prepare_dataset_task.outputs["output_dataset"]
+        #dataset=prepare_dataset_task.outputs["output_dataset"]
     ).set_gpu_limit(1)\
      .set_accelerator_type('NVIDIA_TESLA_T4')
 
