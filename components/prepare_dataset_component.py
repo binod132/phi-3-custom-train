@@ -3,7 +3,7 @@ from kfp.v2.dsl import component, Output, Dataset
 
 @component(
     base_image='python:3.10',
-    packages_to_install=['datasets','unsloth']
+    packages_to_install=['datasets','unsloth','torch==2.4.0+cu121 --index-url https://download.pytorch.org/whl/cu121']
 )
 def prepare_dataset(output_dataset: Output[Dataset]):
     
