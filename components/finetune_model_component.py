@@ -2,7 +2,7 @@ import kfp.dsl as dsl
 from kfp.v2.dsl import component, Input, Output, Dataset, Model
 
 @component(
-    base_image='pytorch/pytorch:2.4.0-cuda12.1-cudnn9-devel'
+    base_image='us-docker.pkg.dev/brave-smile-424210-m0/train/phi-3:dev'
 )
 def finetune_model(dataset: Input[Dataset], output_model: Output[Model]):
     import torch
