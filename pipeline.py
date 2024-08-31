@@ -14,8 +14,7 @@ def pipeline():
     finetune_model_task = finetune_model(
         dataset=prepare_dataset_task.outputs["output_dataset"]
     ).set_gpu_limit(1)\
-     .set_accelerator_type('NVIDIA_TESLA_T4')\
-     .set_machine_type('n1-standard-4')
+     .set_accelerator_type('NVIDIA_TESLA_T4')
 
     # Step 3: Predict using the finetuned model
     predict_task = predict(
