@@ -2,17 +2,17 @@ import kfp.dsl as dsl
 from kfp.v2.dsl import component, Output, Dataset
 
 @component(
-    base_image='us-docker.pkg.dev/brave-smile-424210-m0/train/phi-3:dev',
-    packages_to_install=['datasets']
+    base_image='python:3.10',
+    packages_to_install=['datasets','unsloth']
 )
 def prepare_dataset(output_dataset: Output[Dataset]):
     
     import os
-    import torch
+    #import torch
     from unsloth import FastLanguageModel
     from datasets import load_dataset
-    from transformers import TrainingArguments
-    from trl import SFTTrainer
+    #from transformers import TrainingArguments
+    #from trl import SFTTrainer
     from unsloth import is_bfloat16_supported
     
     max_seq_length = 2048 # Choose any! We auto support RoPE Scaling internally!
