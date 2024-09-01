@@ -16,7 +16,7 @@ def pipeline():
     ).set_cpu_limit('1')\
     .set_memory_limit('4')\
     .set_gpu_limit(1)\
-    .set_accelerator_type('NVIDIA_TESLA_T1')
+    .set_accelerator_type('NVIDIA_TESLA_T4')
 
     # Step 3: Predict using the finetuned model
     #predict_task = predict(
