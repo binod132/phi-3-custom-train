@@ -5,7 +5,7 @@ from components.prepare_dataset_component import prepare_dataset
 from components.finetune_model_component import finetune_model
 from components.predict_component import predict
 
-@pipeline(name="phi-3-model-finetuning-pipeline")
+@pipeline(name="phi-3-model-finetuning-pipeline-new")
 def pipeline():
     # Step 1: Prepare Dataset
     prepare_dataset_task = prepare_dataset()

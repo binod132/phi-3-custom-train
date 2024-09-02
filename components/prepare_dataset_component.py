@@ -3,7 +3,6 @@ from kfp.v2.dsl import component, Output, Dataset
 import os
 import zipfile
 import subprocess
-from transformers import LlamaTokenizerFast
 
 @component(
     base_image='python:3.10',
