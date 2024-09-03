@@ -5,7 +5,7 @@ import zipfile
 import subprocess
 
 @component(
-    base_image='python:3.10',
+    base_image='us-docker.pkg.dev/vertex-ai/training/tf-cpu.2-14.py310:latest',
     packages_to_install=["transformers", "google-cloud-storage"]
 )
 def prepare_dataset(output_dataset: Output[Dataset]):
