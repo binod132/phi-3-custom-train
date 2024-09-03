@@ -22,7 +22,8 @@ def finetune_model( dataset: Input[Dataset],output_model: Output[Model]):
     load_in_4bit = True #
 
     #get dataset
-    df = pd.read_csv(dataset.path+ ".csv")
+    #df = pd.read_csv(dataset.path+ ".csv")
+    df = pd.read_csv(dataset.path)
     reverted_dataset = Dataset.from_pandas(df)
 
     model, tokenizer = FastLanguageModel.from_pretrained(

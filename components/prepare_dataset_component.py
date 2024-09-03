@@ -80,4 +80,7 @@ def prepare_dataset(output_dataset: Output[Dataset]):
     from datasets import load_dataset
     dataset = load_dataset("yahma/alpaca-cleaned", split = "train")
     dataset = dataset.map(formatting_prompts_func, batched = True,)
-    dataset.to_csv(output_dataset.path + ".csv")
+    local_path=f'{output_dataset.path}.csv'
+    dataset.to_csv(output_dataset.path + ".csv", index=False)
+    # Upload the CSV file to GCS (the pipeline automatically handles this)
+    output_dataset.path = local_path
